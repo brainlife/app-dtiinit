@@ -2,6 +2,7 @@ rm dwi_data*
 rm products.json
 rm sca-dtiinit.*
 rm finished
+rm jobid
 rm dtiInitLog.mat
 rm -rf dti90trilin
 rm -rf ROIs

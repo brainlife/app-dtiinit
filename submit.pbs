@@ -8,10 +8,13 @@ cd $PBS_O_WORKDIR
 module load matlab
 module load spm
 
-export MATLABPATH=$SCA_SERVICE_DIR
-matlab -nodisplay -nosplash -r main
+#set > one.env
 
-#fake products.json for now..
-echo '{}' > products.json
+export MATLABPATH=$MATLABPATH:$SCA_SERVICE_DIR
+matlab -nodisplay -nosplash -r main
+if [ $? -eq 0 ]; then
+    #fake products.json for now..
+    echo '{}' > products.json
+fi
 
 echo 0 > finished
