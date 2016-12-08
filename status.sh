@@ -18,11 +18,6 @@ if [ -f finished ]; then
     fi
 fi
 
-#if [ -f started ]; then
-#    echo "running"
-#    exit 0 #running!
-#fi
-
 if [ -f jobid ]; then
     jobid=`cat jobid`
     jobstate=`qstat -f $jobid | grep job_state | cut -b17`
@@ -49,8 +44,3 @@ fi
 echo "can't determine the status!"
 exit 3
 
-#echo "running.job.id is gone.. job must have finished"
-#code=`cat exit.code`
-#curl -X POST -H "Content-Type: application/json" -d "{\"status\": \"finished\", \"msg\":\"lifedemo ended with code:$code\"}" $progress_url
-#echo "job finished with code $code"
-#exit $code

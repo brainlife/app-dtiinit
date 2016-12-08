@@ -13,11 +13,6 @@ if [ -z $SCA_WORKFLOW_DIR ]; then export SCA_WORKFLOW_DIR=`pwd`; fi
 if [ -z $SCA_TASK_DIR ]; then export SCA_TASK_DIR=`pwd`; fi
 if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
 
-module load matlab
-module load spm
-
-matlab -nodisplay -nosplash -r main
-
 #clean up previous job (just in case)
 rm -f finished
 jobid=`qsub submit.pbs`
