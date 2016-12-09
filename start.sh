@@ -16,6 +16,6 @@ if [ -z $SCA_SERVICE_DIR ]; then export SCA_SERVICE_DIR=`pwd`; fi
 #clean up previous job (just in case)
 rm -f finished
 #jobid=`qsub -q preempt submit.pbs`
-jobid=`qsub submit.pbs`
+jobid=`qsub $SCA_SERVICE_DIR/submit.pbs`
 echo $jobid > jobid
 
