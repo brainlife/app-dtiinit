@@ -21,6 +21,10 @@ fi
 if [ -f jobid ]; then
     jobid=`cat jobid`
     jobstate=`qstat -f $jobid | grep job_state | cut -b17`
+    if [ -z $jobstate ]; then
+        echo "Job removed before completing - maybe timed out?" 
+        exit 2
+    fi
     if [ $jobstate == "Q" ]; then
         echo "Waiting in the queue"
         eststart=`showstart $jobid | grep start`
