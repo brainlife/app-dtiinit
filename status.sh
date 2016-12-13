@@ -20,6 +20,10 @@ fi
 
 if [ -f jobid ]; then
     jobid=`cat jobid`
+    if [ -z $jobid ]; then
+        echo "jobid is empty.. failed to submit?"
+        exit 3 
+    fi
     jobstate=`qstat -f $jobid | grep job_state | cut -b17`
     if [ -z $jobstate ]; then
         echo "Job removed before completing - maybe timed out?" 
@@ -45,6 +49,6 @@ if [ -f jobid ]; then
     exit 2
 fi
 
-echo "can't determine the status!"
+echo "can't determine the status - maybe not yet started?"
 exit 3
 
