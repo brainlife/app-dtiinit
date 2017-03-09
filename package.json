@@ -1,6 +1,6 @@
 {
   "name": "sca-service-dtiinit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "run dtiinit",
   "directories": {
     "test": "test"
