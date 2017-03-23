@@ -13,9 +13,9 @@ module load fsl
 
 export MATLABPATH=$MATLABPATH:$SCA_SERVICE_DIR
 matlab -nodisplay -nosplash -r main
-if [ $? -eq 0 ]; then
-    #fake products.json for now..
-    echo '{}' > products.json
-fi
-
-echo 0 > finished
+ret=$?
+#if [ $ret -eq 0 ]; then
+#    #fake products.json for now..
+#    #echo '{}' > products.json
+#fi
+echo $ret > finished

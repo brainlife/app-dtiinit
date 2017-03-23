@@ -1,5 +1,3 @@
-~/testdata/wu-pipelines-data/100307/unprocessed/3T/Diffusion
-100307_3T_DWI_dir97_RL.bval
-100307_3T_DWI_dir97_RL.bvec
-100307_3T_DWI_dir97_RL.nii.gz
+[![Abcdspec-compliant](https://img.shields.io/badge/ABCD_Spec-v1.0-green.svg)](https://github.com/soichih/abcd-spec)
 
+# sca-service-dtiinit
