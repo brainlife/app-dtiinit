@@ -23,6 +23,7 @@ cp *_b0.nii.gz dwi_b0.nii.gz
 
 #matlab doesn't set return code properly.. let's check for output file 
 if [ -s dti_trilin/dt6.mat ];
+then
     echo 0 > finished
 else
     echo "dt6.mat missing"
