@@ -9,7 +9,7 @@ config = loadjson('config.json');
 
 % to find resolution
 dwi = niftiRead(config.dwi);
-res = dwi.dim(1:3);
+res = dwi.pixdim(1:3);
 clear dwi
 
 % run dtiInit
