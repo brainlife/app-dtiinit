@@ -1,8 +1,18 @@
 function [] = main()
 
-disp('loading paths')
-addpath(genpath('/N/u/hayashis/BigRed2/git/vistasoft'))
-addpath(genpath('/N/u/hayashis/BigRed2/git/jsonlab'))
+% Karst and Big Red 2 (IU) specific configuration
+if exist('/N/u/hayashis/BigRed2/git/vistasoft','dir')
+    disp('loading paths')
+    addpath(genpath('/N/u/hayashis/BigRed2/git/vistasoft'))
+    addpath(genpath('/N/u/hayashis/BigRed2/git/jsonlab'))
+end
+
+% Jetstream specific configuration
+if exist('/root/git/vistasoft','dir')
+    disp('loading paths')
+    addpath(genpath('/root/git/vistasoft'))
+    addpath(genpath('/root/git/jsonlab'))
+end
 
 % load my own config.json
 config = loadjson('config.json');
