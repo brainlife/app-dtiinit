@@ -7,6 +7,7 @@ rm dtiInitLog.mat
 rm -rf dti90trilin
 rm -rf ROIs
 rm -rf dti_trilin
+rm dwi_b0.nii.gz
 #rm sca-service-life.*
 #rm finished
 #rm jobid*
