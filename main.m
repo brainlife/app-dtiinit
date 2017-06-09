@@ -1,17 +1,14 @@
 function [] = main()
 
-% Karst and Big Red 2 (IU) specific configuration
-if exist('/N/u/hayashis/BigRed2/git/vistasoft','dir')
-    disp('loading paths')
+switch getenv('ENV')
+case 'IUHPC'
+    disp('loading paths (HPC)')
     addpath(genpath('/N/u/hayashis/BigRed2/git/vistasoft'))
     addpath(genpath('/N/u/hayashis/BigRed2/git/jsonlab'))
-end
-
-% Jetstream specific configuration
-if exist('/root/git/vistasoft','dir')
-    disp('loading paths')
-    addpath(genpath('/root/git/vistasoft'))
-    addpath(genpath('/root/git/jsonlab'))
+case 'VM'
+    disp('loading paths (VM)')
+    addpath(genpath('/usr/local/vistasoft'))
+    addpath(genpath('/usr/local/jsonlab'))
 end
 
 % load my own config.json
@@ -21,18 +18,6 @@ config = loadjson('config.json');
 dwi = niftiRead(config.dwi);
 res = dwi.pixdim(1:3);
 clear dwi
-
-% run dtiInit
-% https://github.com/vistalab/vistasoft/blob/master/mrDiffusion/dtiInit/dtiInitParams.m
-%dwParams = dtiInitParams(...
-%    'clobber',1, ...
-%    'phaseEncodeDir',2, ...
-%    'bvecsFile',config.bvecs, ...
-%    'bvalsFile',config.bvals, ...
-%    'dt6BaseName','dti_trilin', ...
-%    'outDir', pwd, ...
-%    'dwOutMm', res ...
-%);
 
 dwParams = dtiInitParams;
 dwParams.clobber           =  1;
@@ -45,6 +30,11 @@ dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti_trilin';
 dwParams.outDir     = pwd;
 dwParams.dwOutMm    = res;
+
+%apply config params
+if isprop(config, 'eddyCorrect')
+	dwParams.eddyCorrect = config.eddyCorrect;
+end
 
 dwParams.outDir = './';
 
