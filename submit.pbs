@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l nodes=1:ppn=16:dc2,walltime=6:00:00
-#PBS -N sca-dtiinit
+#PBS -N app-dtiinit
 #PBS -V
 
 cd $PBS_O_WORKDIR
@@ -9,21 +9,14 @@ module load matlab
 module load spm
 module load fsl
 
-export MATLABPATH=$MATLABPATH:$SCA_SERVICE_DIR
+export MATLABPATH=$MATLABPATH:$SERVICE_DIR
 matlab -nodisplay -nosplash -r main
-#ret=$?
-#if [ $ret -eq 0 ]; then
-#    #fake products.json for now..
-#    #echo '{}' > products.json
-#fi
-#echo $ret > finished
-
-#normalize output file in case the input file wasn't named dwi.nii.gz
-cp *_b0.nii.gz dwi_b0.nii.gz
 
 #matlab doesn't set return code properly.. let's check for output file 
 if [ -s dti_trilin/dt6.mat ];
 then
+    #normalize output file in case the input file wasn't named dwi.nii.gz
+    cp *_b0.nii.gz dwi_b0.nii.gz
     echo 0 > finished
 else
     echo "dt6.mat missing"
