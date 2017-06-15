@@ -3,11 +3,14 @@
 #PBS -N app-dtiinit
 #PBS -V
 
-cd $PBS_O_WORKDIR
+if [ $ENV == "IUHPC" ]; then
 
-module load matlab
-module load spm
-module load fsl
+    cd $PBS_O_WORKDIR
+
+    module load matlab
+    module load spm
+    module load fsl
+fi
 
 export MATLABPATH=$MATLABPATH:$SERVICE_DIR
 matlab -nodisplay -nosplash -r main
