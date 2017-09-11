@@ -21,20 +21,18 @@ clear dwi
 
 dwParams = dtiInitParams;
 dwParams.clobber           =  1;
-dwParams.eddyCorrect       = -1;
+%dwParams.eddyCorrect       = -1;
+dwParams.eddyCorrect       = config.eddyCorrect;
 dwParams.phaseEncodeDir    = 2; 
-dwParams.rotateBvecsWithRx = 0;
-dwParams.rotateBvecsWithCanXform = 0;
+%dwParams.rotateBvecsWithRx = 0;
+%dwParams.rotateBvecsWithCanXform = 0;
+dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
+dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti_trilin';
 dwParams.outDir     = pwd;
 dwParams.dwOutMm    = res;
-
-%apply config params
-if isprop(config, 'eddyCorrect')
-	dwParams.eddyCorrect = config.eddyCorrect;
-end
 
 dwParams.outDir = './';
 
