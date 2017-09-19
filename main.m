@@ -33,8 +33,9 @@ dwParams.dwOutMm    = res;
 
 dwParams.outDir = './';
 %apply config params
-if isprop(config, 'eddyCorrect')
-    dwParams.eddyCorrect = config.eddyCorrect;
+if isfield(config, 'eddyCorrect')
+    disp('overriding eddyCorrect param from config!!!!!!!!!!!!')
+    dwParams.eddyCorrect = str2double(config.eddyCorrect);
     dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
     dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 end

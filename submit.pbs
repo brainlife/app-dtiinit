@@ -3,10 +3,9 @@
 #PBS -N app-dtiinit
 #PBS -V
 
+[ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
+
 if [ $ENV == "IUHPC" ]; then
-
-    cd $PBS_O_WORKDIR
-
     module load matlab
     module load spm
     module load fsl
@@ -20,6 +19,12 @@ if [ -s dti_trilin/dt6.mat ];
 then
     #normalize output file in case the input file wasn't named dwi.nii.gz
     cp *_b0.nii.gz dwi_b0.nii.gz
+
+    #normalize output files for brain-life neuro/dtiinit_output
+    cp dwi_*.nii.gz dwi.nii.gz
+    cp dwi_*.bvals dwi.bvals
+    cp dwi_*.bvecs dwi.bvecs
+
     echo 0 > finished
 else
     echo "dt6.mat missing"

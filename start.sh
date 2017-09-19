@@ -8,7 +8,6 @@ if [ -z $ENV ]; then export ENV=IUHPC; fi
 rm -f finished
 
 if [ $ENV == "IUHPC" ]; then
-
     jobid=`qsub $SERVICE_DIR/submit.pbs`
     echo $jobid > jobid
 fi
