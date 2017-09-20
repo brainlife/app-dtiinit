@@ -20,6 +20,8 @@ dwi = niftiRead(config.dwi);
 res = dwi.pixdim(1:3)
 clear dwi
 
+mkdir('output')
+
 dwParams = dtiInitParams;
 dwParams.eddyCorrect       = -1;
 dwParams.rotateBvecsWithRx = 0;
@@ -28,8 +30,8 @@ dwParams.phaseEncodeDir    = 2;
 dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
-dwParams.dt6BaseName = 'dti_trilin';
-dwParams.outDir = './';
+dwParams.dt6BaseName = 'dti';
+dwParams.outDir = 'output';
 dwParams.dwOutMm    = res;
 
 %apply config params
@@ -46,6 +48,6 @@ dt6 = load(dt6FileName{1})
 savejson('', dt6, 'dt6.json');
 
 disp('converting dtiInitLog to dtiInitLog.json')
-dtlog = load('dtiInitLog.mat')
+dtlog = load('output/dtiInitLog.mat')
 savejson('', dtlog.dtiInitLog, 'dtiInitLog.json');
 
