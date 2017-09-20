@@ -6,6 +6,7 @@ if [ -z $ENV ]; then export ENV=IUHPC; fi
 
 #clean up previous job (just in case)
 rm -f finished
+rm -f product.json
 
 if [ $ENV == "IUHPC" ]; then
     jobid=`qsub $SERVICE_DIR/submit.pbs`

@@ -20,7 +20,7 @@ dwi = niftiRead(config.dwi);
 res = dwi.pixdim(1:3)
 clear dwi
 
-mkdir('output')
+mkdir('dtiinit')
 
 dwParams = dtiInitParams;
 dwParams.eddyCorrect       = -1;
@@ -31,7 +31,7 @@ dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti';
-dwParams.outDir = 'output';
+dwParams.outDir = 'dtiinit';
 dwParams.dwOutMm    = res;
 
 %apply config params
@@ -42,12 +42,13 @@ if isfield(config, 'eddyCorrect')
 end
 
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
+%disp([dt6FileName, outBaseDir])
 
-disp('converting dt6.mat to dt6.json')
-dt6 = load(dt6FileName{1})
-savejson('', dt6, 'dt6.json');
+disp('creating product.json')
+product = struct();
+product.dt6 = load(dt6FileName{1});
+product.dtlog = load('dtiinit/dtiInitLog.mat');
+product.datatype_tags = {'test','another'};
+savejson('', product, 'product.json');
 
-disp('converting dtiInitLog to dtiInitLog.json')
-dtlog = load('output/dtiInitLog.mat')
-savejson('', dtlog.dtiInitLog, 'dtiInitLog.json');
 
