@@ -28,7 +28,7 @@ dwParams.phaseEncodeDir    = 2;
 dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
-dwParams.dt6BaseName = 'dti';
+dwParams.dt6BaseName = 'dti_trilin';
 dwParams.outDir = './';
 dwParams.dwOutMm    = res;
 
@@ -39,9 +39,13 @@ if isfield(config, 'eddyCorrect')
     dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 end
 
-[dt6FileName] = dtiInit(config.dwi, config.t1, dwParams)
+[dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
 
-load(dt6FileName);
-savejson('dt6', files, 'dt6.json');
+disp('converting dt6.mat to dt6.json')
+dt6 = load(dt6FileName{1})
+savejson('', dt6, 'dt6.json');
 
+disp('converting dtiInitLog to dtiInitLog.json')
+dtlog = load('dtiInitLog.mat')
+savejson('', dtlog.dtiInitLog, 'dtiInitLog.json');
 

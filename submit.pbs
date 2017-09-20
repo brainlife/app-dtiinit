@@ -17,6 +17,7 @@ if [ $ENV == "IUHPC" ]; then
     module load fsl
 fi
 
+echo "starting matlab"
 export MATLABPATH=$MATLABPATH:$SERVICE_DIR
 matlab -nodisplay -nosplash -r main
 
@@ -28,13 +29,13 @@ then
     #file path so people parsing dt6 won't be able to find the file once it's archived
     mkdir -p output
     mv dt6.json output
+    mv dtiInitLog.json output
     mv dti output
     mv ROIs output
     mv *.mat output
     mv *.nii.gz output
     mv *.bvecs output
     mv *.bvals output
-
     echo 0 > finished
 else
     echo "dt6.mat missing"

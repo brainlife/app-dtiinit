@@ -6,8 +6,12 @@ rm app-dtiinit.*
 rm finished
 rm jobid
 rm dtiInitLog.mat
-rm -rf dti90trilin
-rm -rf ROIs
 rm -rf dti_trilin
+rm -rf ROIs
 rm dwi_b0.nii.gz
 rm std*.log
+rm *.mat
+rm *.nii.gz
+rm *.bvecs
+rm *.bvals
+rm -rf output

@@ -1,0 +1,10 @@
+{
+    "t1": "/N/u/hayashis/Karst/testdata/app-dtiinit-small/1_001_t1.nii.gz",
+    "dwi": "/N/u/hayashis/Karst/testdata/app-dtiinit-small/1_001_dwi.nii.gz",
+    "bvecs": "/N/u/hayashis/Karst/testdata/app-dtiinit-small/1_001_dwi.bvecs",
+    "bvals": "/N/u/hayashis/Karst/testdata/app-dtiinit-small/1_001_dwi.bvals",
+    "eddyCorrect": "-1",
+    "rotateBvecsWithRx": false,
+    "rotateBvecsWithCanXform": false
+}
+
