@@ -1,7 +1,13 @@
 #!/bin/bash
 #PBS -l nodes=1:ppn=8:dc2,walltime=6:00:00
-#PBS -N app-dtiinit
+#PBS -N dtiinit
 #PBS -V
+#PBS -o stdout.$PBS_JOBID.log
+#PBS -e stderr.$PBS_JOBID.log
+
+#mainly to debug locally
+if [ -z $SERVICE_DIR ]; then export SERVICE_DIR=`pwd`; fi
+if [ -z $ENV ]; then export ENV=IUHPC; fi
 
 [ $PBS_O_WORKDIR ] && cd $PBS_O_WORKDIR
 
@@ -15,15 +21,19 @@ export MATLABPATH=$MATLABPATH:$SERVICE_DIR
 matlab -nodisplay -nosplash -r main
 
 #matlab doesn't set return code properly.. let's check for output file 
-if [ -s dti_trilin/dt6.mat ];
+if [ -f dt6.json ];
 then
-    #normalize output file in case the input file wasn't named dwi.nii.gz
-    cp *_b0.nii.gz dwi_b0.nii.gz
-
-    #normalize output files for brain-life neuro/dtiinit_output
-    cp dwi_*.nii.gz dwi.nii.gz
-    cp dwi_*.bvals dwi.bvals
-    cp dwi_*.bvecs dwi.bvecs
+    #need to move all outputs under ./output
+    #why can't we use outDir? Because dtiInit prefix the outDir in front of
+    #file path so people parsing dt6 won't be able to find the file once it's archived
+    mkdir -p output
+    mv dt6.json output
+    mv dti output
+    mv ROIs output
+    mv *.mat output
+    mv *.nii.gz output
+    mv *.bvecs output
+    mv *.bvals output
 
     echo 0 > finished
 else
