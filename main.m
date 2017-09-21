@@ -52,5 +52,5 @@ dtiInitDir(config.dwi, dwParams)
 %savejson('', product, 'product.json');
 
 disp('creating dt6.json')
-savejson('', load(dt6FileName{1}, 'dt6.json'));
+savejson('', load(dt6FileName{1}), 'dt6.json');
 
