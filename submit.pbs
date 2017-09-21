@@ -22,7 +22,7 @@ export MATLABPATH=$MATLABPATH:$SERVICE_DIR
 matlab -nodisplay -nosplash -r main
 
 #matlab doesn't set return code properly.. let's check for output file 
-if [ -f product.json ];
+if [ -f dt6.json ];
 then
     echo 0 > finished
 else
