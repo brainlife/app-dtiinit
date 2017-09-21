@@ -26,7 +26,7 @@ if [ -f "dt6.json" ];
 then
     echo 0 > finished
 else
-    echo "missing product.json"
+    echo "missing dt6.json"
     echo 1 > finished
 fi
 
