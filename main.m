@@ -44,11 +44,13 @@ dtiInitDir(config.dwi, dwParams)
 
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
 
-disp('creating product.json')
-product = struct();
-product.dt6 = load(dt6FileName{1});
-product.dtlog = load('dtiInitLog.mat');
-product.datatype_tags = {'test','another'};
-savejson('', product, 'product.json');
+%disp('creating product.json')
+%product = struct();
+%product.dt6 = load(dt6FileName{1});
+%product.dtlog = load('dtiInitLog.mat');
+%product.datatype_tags = {'test','another'};
+%savejson('', product, 'product.json');
 
+disp('creating dt6.json')
+savejson('', load(dt6FileName{1}, 'dt6.json');
 
