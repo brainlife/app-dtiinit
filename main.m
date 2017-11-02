@@ -16,11 +16,11 @@ config = loadjson('config.json')
 
 % to find resolution
 disp('loading dwi resolution')
-if isempty(config.res)
+if isempty(config.resolution)
     dwi = niftiRead(config.dwi);
-    res = dwi.pixdim(1:3)
+    res = dwi.pixdim(1:3);
 else
-    res = config.res
+    res = str2num(config.resoultion);
 end
 clear dwi
 
@@ -28,7 +28,7 @@ dwParams = dtiInitParams;
 dwParams.eddyCorrect       = -1;
 dwParams.rotateBvecsWithRx = 0;
 dwParams.rotateBvecsWithCanXform = 0;
-dwParams.phaseEncodeDir    = 2; 
+dwParams.phaseEncodeDir    = config.phaseEncodeDir; 
 dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
