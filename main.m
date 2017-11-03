@@ -16,7 +16,7 @@ config = loadjson('config.json')
 
 % to find resolution
 disp('loading dwi resolution')
-if isempty(config.resolution)
+if config.resolution == 'default'
     dwi = niftiRead(config.dwi);
     res = dwi.pixdim(1:3);
 else
