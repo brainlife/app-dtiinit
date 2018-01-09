@@ -26,7 +26,7 @@ if strcmp(config.resolution,'default')
     dwi = niftiRead(config.dwi);
     res = dwi.pixdim(1:3);
 else
-    res = str2num(config.resoultion);
+    res = str2num(config.resolution);
 end
 clear dwi
 
