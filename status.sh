@@ -4,8 +4,6 @@
 #return code 1 = finished successfully
 #return code 2 = failed
 
-##now wait for running to go away
-
 if [ -f finished ]; then
     code=`cat finished`
     if [ $code -eq 0 ]; then
@@ -35,9 +33,9 @@ if [ -f jobid ]; then
         exit 0
     fi
     if [ $jobstate == "R" ]; then
-	subid=$(cat jobid | cut -d '.' -f 1)
-	logname="stdout.$subid.*.log"
-	tail -1 $logname
+        subid=$(cat jobid | cut -d '.' -f 1)
+        logname="stdout.$subid.*.log"
+        tail -1 $logname
         exit 0
     fi
     if [ $jobstate == "H" ]; then

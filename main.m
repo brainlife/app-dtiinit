@@ -15,23 +15,31 @@ end
 config = loadjson('config.json')
 
 % to find resolution
-disp('loading dwi resolution')
-dwi = niftiRead(config.dwi);
-res = dwi.pixdim(1:3)
-clear dwi
 
-mkdir('output')
+if ~isfield(config,'resolution')
+    disp('resolution not set.. setting it to default value')
+    set(config, 'resolution', 'default')
+end
+
+disp('loading dwi resolution')
+if strcmp(config.resolution,'default')
+    dwi = niftiRead(config.dwi);
+    res = dwi.pixdim(1:3);
+else
+    res = str2num(config.resolution);
+end
+clear dwi
 
 dwParams = dtiInitParams;
 dwParams.eddyCorrect       = -1;
 dwParams.rotateBvecsWithRx = 0;
 dwParams.rotateBvecsWithCanXform = 0;
-dwParams.phaseEncodeDir    = 2; 
+dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir); 
 dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti';
-dwParams.outDir = 'output';
+dwParams.outDir = '.';
 dwParams.dwOutMm    = res;
 
 %apply config params
@@ -41,13 +49,18 @@ if isfield(config, 'eddyCorrect')
     dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 end
 
+%dump paths to be used
+dtiInitDir(config.dwi, dwParams)
+
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
 
-disp('converting dt6.mat to dt6.json')
-dt6 = load(dt6FileName{1})
-savejson('', dt6, 'dt6.json');
+%disp('creating product.json')
+%product = struct();
+%product.dt6 = load(dt6FileName{1});
+%product.dtlog = load('dtiInitLog.mat');
+%product.datatype_tags = {'test','another'};
+%savejson('', product, 'product.json');
 
-disp('converting dtiInitLog to dtiInitLog.json')
-dtlog = load('output/dtiInitLog.mat')
-savejson('', dtlog.dtiInitLog, 'dtiInitLog.json');
+disp('creating dt6.json')
+savejson('', load(dt6FileName{1}), 'dt6.json');
 
