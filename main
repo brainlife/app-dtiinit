@@ -10,10 +10,11 @@ singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dti
 #check output file
 if [ -f dt6.json ];
 then
-    echo 0 > finished
+    echo "seems to have finished successfully"
+    exit 0
 else
-    echo "dt6.mat missing"
-    echo 1 > finished
+    echo "failed to produce dt6.json"
+    exit 1
 fi
 
 
