@@ -11,3 +11,5 @@ rm Voxel_motion.txt
 rm *.mat
 rm -rf dti
 rm -rf ROIs
+rm exit-code
+rm _main

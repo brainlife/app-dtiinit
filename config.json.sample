@@ -5,6 +5,7 @@
     "bvals": "/N/u/hayashis/Karst/testdata/108323/dwi/dwi.bvals",
     "eddyCorrect": "1",
     "rotateBvecsWithRx": false,
-    "rotateBvecsWithCanXform": false
+    "rotateBvecsWithCanXform": false,
+    "resolution": "default"
 }
 
