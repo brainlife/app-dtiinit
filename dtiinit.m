@@ -1,14 +1,16 @@
 disp('running dtiinit')
 
-switch getenv('ENV')
-case 'IUHPC'
-    disp('loading paths (HPC) - hayashis')
-    addpath(genpath('/N/u/brlife/git/vistasoft'))
-    addpath(genpath('/N/u/brlife/git/jsonlab'))
-case 'VM'
-    disp('loading paths (VM)')
-    addpath(genpath('/usr/local/vistasoft'))
-    addpath(genpath('/usr/local/jsonlab'))
+if ~isdeployed
+    switch getenv('ENV')
+    case 'IUHPC'
+        disp('loading paths (HPC) - hayashis')
+        addpath(genpath('/N/u/brlife/git/vistasoft'))
+        addpath(genpath('/N/u/brlife/git/jsonlab'))
+    case 'VM'
+        disp('loading paths (VM)')
+        addpath(genpath('/usr/local/vistasoft'))
+        addpath(genpath('/usr/local/jsonlab'))
+    end
 end
 
 % load my own config.json
@@ -47,6 +49,8 @@ if isfield(config, 'eddyCorrect')
     dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
     dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 end
+
+disp(dwParams)
 
 %dump paths to be used
 dtiInitDir(config.dwi, dwParams)
