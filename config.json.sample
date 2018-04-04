@@ -6,6 +6,7 @@
     "eddyCorrect": "1",
     "rotateBvecsWithRx": false,
     "rotateBvecsWithCanXform": false,
-    "resolution": "default"
+    "resolution": "default",
+    "phaseEncodeDir": "2"
 }
 

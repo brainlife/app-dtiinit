@@ -5,7 +5,8 @@
 #for karst/carbonate
 module load singularity 2> /dev/null
 
-singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a FSLOUTPUTTYPE=NIFTI_GZ ./compiled/dtiinit
+export FSLOUTPUTTYPE=NIFTI_GZ
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
 
 #check output file
 if [ -f dt6.json ];
