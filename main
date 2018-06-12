@@ -2,10 +2,8 @@
 #PBS -l nodes=1:ppn=8,walltime=6:00:00
 #PBS -N dtiinit
 
-#for karst/carbonate
-module load singularity 2> /dev/null
-
-singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
+export FSLOUTPUTTYPE=NIFTI_GZ
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
 if [ -f product.json ];
 then
     echo "seems to have finished successfully"

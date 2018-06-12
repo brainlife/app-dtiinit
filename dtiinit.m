@@ -1,14 +1,16 @@
 disp('running dtiinit')
 
-switch getenv('ENV')
-case 'IUHPC'
-    disp('loading paths (HPC) - hayashis')
-    addpath(genpath('/N/u/brlife/git/vistasoft'))
-    addpath(genpath('/N/u/brlife/git/jsonlab'))
-case 'VM'
-    disp('loading paths (VM)')
-    addpath(genpath('/usr/local/vistasoft'))
-    addpath(genpath('/usr/local/jsonlab'))
+if ~isdeployed
+    switch getenv('ENV')
+    case 'IUHPC'
+        disp('loading paths (HPC) - hayashis')
+        addpath(genpath('/N/u/brlife/git/vistasoft'))
+        addpath(genpath('/N/u/brlife/git/jsonlab'))
+    case 'VM'
+        disp('loading paths (VM)')
+        addpath(genpath('/usr/local/vistasoft'))
+        addpath(genpath('/usr/local/jsonlab'))
+    end
 end
 
 % load my own config.json
@@ -48,6 +50,8 @@ if isfield(config, 'eddyCorrect')
     dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 end
 
+disp(dwParams)
+
 %dump paths to be used
 dtiInitDir(config.dwi, dwParams)
 
@@ -55,6 +59,6 @@ dtiInitDir(config.dwi, dwParams)
 
 disp('creating product.json')
 dt6 = load(dt6FileName{1})
-%TODO - maybe load dti/fibers/conTrack
+%TODO - maybe load other things like dti/fibers/conTrack?
 savejson('', dt6, 'product.json');
 
