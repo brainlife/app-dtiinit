@@ -6,15 +6,19 @@
 module load singularity 2> /dev/null
 
 singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
-
-#check output file
-if [ -f dt6.json ];
+if [ -f product.json ];
 then
     echo "seems to have finished successfully"
     exit 0
 else
-    echo "failed to produce dt6.json"
+    echo "failed to produce product.json"
     exit 1
 fi
 
+#dt6 is deprecated.. use product.json instead
+cp product.json dt6.json
 
+#convert t1pdd.png to a webm movie
+#gm convert -crop 181x217 t1pdd.png +adjoin t1pdd.%02d.png
+#png2yuv -I p -f 24 -b 0 -n 98 -j t1pdd.%02d.png > t1pdd.yuv #mjpegtools
+#vpxenc --good --cpu-used=0 --auto-alt-ref=1 --lag-in-frames=16 --end-usage=vbr --passes=2 --threads=2 --target-bitrate=3000 -o t1pdd.webm t1pdd.yuv #vpx-tools

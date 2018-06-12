@@ -53,7 +53,8 @@ dtiInitDir(config.dwi, dwParams)
 
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
 
-disp('creating dt6.json')
-savejson('', load(dt6FileName{1}), 'dt6.json');
-
+disp('creating product.json')
+dt6 = load(dt6FileName{1})
+%TODO - maybe load dti/fibers/conTrack
+savejson('', dt6, 'product.json');
 
