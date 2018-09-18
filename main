@@ -4,11 +4,8 @@
 
 export FSLOUTPUTTYPE=NIFTI_GZ
 singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
-if [ -f product.json ];
+if [ ! -f product.json ];
 then
-    echo "seems to have finished successfully"
-    exit 0
-else
     echo "failed to produce product.json"
     exit 1
 fi
