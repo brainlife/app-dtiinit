@@ -16,6 +16,11 @@ fi
 #dt6 is deprecated.. use product.json instead
 cp product.json dt6.json
 
+#app-dtiinit now outputs neuro/dwi. Let's copy 
+cp $(jq -r '.files.alignedDwRaw' product.json) dwi.nii.gz
+cp $(jq -r '.files.alignedDwBvecs' product.json) dwi.bvecs
+cp $(jq -r '.files.alignedDwBvals' product.json) dwi.bvals
+
 #convert t1pdd.png to a webm movie
 #gm convert -crop 181x217 t1pdd.png +adjoin t1pdd.%02d.png
 #png2yuv -I p -f 24 -b 0 -n 98 -j t1pdd.%02d.png > t1pdd.yuv #mjpegtools
