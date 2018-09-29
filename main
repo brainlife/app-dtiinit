@@ -13,7 +13,7 @@ fi
 #dt6 is deprecated.. use product.json instead
 cp product.json dt6.json
 
-#app-dtiinit now outputs neuro/dwi. Let's copy 
+#app-dtiinit now outputs neuro/dwi. Let's copy (TODO - should I symlink?)
 cp $(jq -r '.files.alignedDwRaw' product.json) dwi.nii.gz
 cp $(jq -r '.files.alignedDwBvecs' product.json) dwi.bvecs
 cp $(jq -r '.files.alignedDwBvals' product.json) dwi.bvals

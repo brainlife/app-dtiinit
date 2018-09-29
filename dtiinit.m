@@ -31,10 +31,11 @@ else
 end
 clear dwi
 
+% https://github.com/vistalab/vistasoft/blob/master/mrDiffusion/dtiInit/dtiInitParams.m
 dwParams = dtiInitParams;
-dwParams.eddyCorrect       = -1;
-dwParams.rotateBvecsWithRx = 0;
-dwParams.rotateBvecsWithCanXform = 0;
+dwParams.eddyCorrect       = str2num(config.eddyCorrect);
+dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
+dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir); 
 dwParams.clobber           =  1;
 dwParams.bvecsFile  = config.bvecs;
@@ -42,13 +43,6 @@ dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti';
 dwParams.outDir = '.';
 dwParams.dwOutMm    = res;
-
-%apply config params
-if isfield(config, 'eddyCorrect')
-    dwParams.eddyCorrect = str2double(config.eddyCorrect);
-    dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
-    dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
-end
 
 disp(dwParams)
 
