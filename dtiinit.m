@@ -51,8 +51,28 @@ dtiInitDir(config.dwi, dwParams)
 
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
 
-disp('creating product.json')
-dt6 = load(dt6FileName{1})
+disp('creating product.json using dt6.mat')
+
+product = load(dt6FileName{1})
 %TODO - maybe load other things like dti/fibers/conTrack?
-savejson('', dt6, 'product.json');
+
+%bids meta 
+if dwParams.eddyCorrect == 1
+    product.meta.MotionCompensation = 1;
+    product.meta.EddyCurrentCorrection = 1;
+end
+if dwParams.eddyCorrect == 0
+    product.meta.MotionCompensation = 1;
+    product.meta.EddyCurrentCorrection = 0;
+end
+if dwParams.eddyCorrect == -1
+    product.meta.MotionCompensation = 0;
+    product.meta.EddyCurrentCorrection = 0;
+end
+
+product.meta.Denoising = 'none';
+product.meta.IntensityNormalization = 0;
+product.meta.NonLinearCorrections = 0;
+
+savejson('', product, 'product.json');
 

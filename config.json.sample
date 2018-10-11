@@ -4,6 +4,7 @@
     "bvecs": "/N/u/hayashis/Karst/testdata/108323/dwi/dwi.bvecs",
     "bvals": "/N/u/hayashis/Karst/testdata/108323/dwi/dwi.bvals",
     "eddyCorrect": "1",
+    "phaseEncodeDir": "2",
     "rotateBvecsWithRx": false,
     "rotateBvecsWithCanXform": false,
     "resolution": "default"
