@@ -36,14 +36,13 @@ You can submit this App online at [https://doi.org/10.25663/bl.app.3](https://do
 
 ```json
 {
-{
     "phaseEncodeDir": "2",
     "resolution": "default",
     "rotateBvecsWithCanXform": true,
     "rotateBvecsWithRx": true,
     "eddyCorrect": "-1",
     "dwi": "somewhere/dwi/dwi.nii.gz",
-    "bvecs": somewhere/dwi/dwi.bvecs",
+    "bvecs": "somewhere/dwi/dwi.bvecs",
     "bvals": "somewhere/dwi/dwi.bvals",
     "t1": "somewhere/anat/t1.nii.gz"
 }
