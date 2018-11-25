@@ -37,23 +37,24 @@ dwParams.eddyCorrect       = str2num(config.eddyCorrect);
 dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
 dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir); 
-dwParams.clobber           =  1;
+dwParams.clobber           = -1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti';
 dwParams.outDir = '.';
 dwParams.dwOutMm    = res;
 
-disp(dwParams)
+disp(dwParams);
 
 %dump paths to be used
-dtiInitDir(config.dwi, dwParams)
+dtiInitDir(config.dwi, dwParams);
+disp(dwParams);
 
-[dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams)
+[dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams);
 
-disp('creating product.json using dt6.mat')
+disp('creating product.json using dt6.mat');
 
-product = load(dt6FileName{1})
+product = load(dt6FileName{1});
 %TODO - maybe load other things like dti/fibers/conTrack?
 
 %bids meta 
