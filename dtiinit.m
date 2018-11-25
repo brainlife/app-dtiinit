@@ -37,18 +37,27 @@ dwParams.eddyCorrect       = str2num(config.eddyCorrect);
 dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
 dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
 dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir); 
-dwParams.clobber           = -1;
+dwParams.clobber           = 1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
 dwParams.dt6BaseName = 'dti';
 dwParams.outDir = '.';
 dwParams.dwOutMm    = res;
 
+% If dwi file is already aligned to a acpc T1 image do not compute
+% a further step of alignment
+if dwParams.eddyCorrect == -1 && ~dwParams.rotateBvecsWithRx && ~dwParams.rotateBvecsWithCanXform
+   dwParams.clobber = -1;
+   copyfile(config.dwi,'dwi_aligned_trilin_noMEC.nii.gz');
+   copyfile(config.bvecs,'dwi_aligned_trilin_noMEC.bvecs');
+   copyfile(config.bvals,'dwi_aligned_trilin_noMEC.bvals');
+   copyfile('identityXform.mat','dwi_aligned_trilin_noMEC_acpcXform.mat');
+end
+
 disp(dwParams);
 
 %dump paths to be used
 dtiInitDir(config.dwi, dwParams);
-disp(dwParams);
 
 [dt6FileName, outBaseDir] = dtiInit(config.dwi, config.t1, dwParams);
 
