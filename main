@@ -2,6 +2,12 @@
 #PBS -l nodes=1:ppn=8,vmem=15gb,walltime=6:00:00
 #PBS -N dtiinit
 
+# Path to test dtiInit without additional registration
+cp $(jq -r '.dwi' config.json) dwi_aligned_trilin_noMEC.nii.gz
+cp $(jq -r '.bvecs' config.json) dwi_aligned_trilin_noMEC.bvecs
+cp $(jq -r '.bvals' config.json) dwi_aligned_trilin_noMEC.bvals
+cp identityXform.mat dwi_aligned_trilin_noMEC_acpcXform.mat
+
 export FSLOUTPUTTYPE=NIFTI_GZ
 singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/dtiinit
 if [ ! -f product.json ];
