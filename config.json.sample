@@ -7,6 +7,7 @@
     "phaseEncodeDir": "2",
     "rotateBvecsWithRx": false,
     "rotateBvecsWithCanXform": false,
+    "noDwiAlignment": false,
     "resolution": "default"
 }
 

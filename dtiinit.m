@@ -36,7 +36,8 @@ dwParams = dtiInitParams;
 dwParams.eddyCorrect       = str2num(config.eddyCorrect);
 dwParams.rotateBvecsWithRx = config.rotateBvecsWithRx;
 dwParams.rotateBvecsWithCanXform = config.rotateBvecsWithCanXform;
-dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir); 
+dwParams.phaseEncodeDir    = str2num(config.phaseEncodeDir);
+dwParams.noDwiAlignment    = config.noDwiAlignment;
 dwParams.clobber           = 1;
 dwParams.bvecsFile  = config.bvecs;
 dwParams.bvalsFile  = config.bvals;
@@ -46,8 +47,11 @@ dwParams.dwOutMm    = res;
 
 % If dwi file is already aligned to a acpc T1 image do not compute
 % a further step of alignment
-if dwParams.eddyCorrect == -1 && ~dwParams.rotateBvecsWithRx && ~dwParams.rotateBvecsWithCanXform
+if dwParams.noDwiAlignment
    dwParams.clobber = -1;
+   dwParams.eddyCorrect       = -1;
+   dwParams.rotateBvecsWithRx = 0;
+   dwParams.rotateBvecsWithCanXform = 0;
    copyfile(config.dwi,'dwi_aligned_trilin_noMEC.nii.gz');
    copyfile(config.bvecs,'dwi_aligned_trilin_noMEC.bvecs');
    copyfile(config.bvals,'dwi_aligned_trilin_noMEC.bvals');
