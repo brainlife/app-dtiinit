@@ -10,11 +10,11 @@
   <a href="https://github.com/brainlife/app-dtiinit/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-MIT-lightgrey.svg" alt="MIT license"></a>
 </p>
 
-> 📍 **This branch, `1.6`, is the brainlife.io App dtiInit** ([doi:10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3)).
+> **This branch, `1.6`, is the brainlife.io App dtiInit** ([doi:10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3)).
 
 This App runs [vistasoft dtiInit](https://github.com/vistalab/vistasoft/wiki/DWI-Initialization), a DWI preprocessing tool that can correct eddy currents and head motion and coregister the diffusion data to the T1-weighted anatomy. This preprocessing is required by many diffusion analyses, such as tensor fitting and tractography. dtiInit writes its results in the standard directory structure used by vistasoft applications (mrDiffusion, AFQ, LiFE and others); other Apps can use the aligned DWI output directly.
 
-## 🧠 At a glance
+## At a glance
 
 <!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
 
@@ -24,20 +24,20 @@ Runs vistasoft dtiInit (compiled MATLAB): optional eddy/motion correction, resam
 
 | | |
 |---|---|
-| 📥 **Inputs** | `neuro/dwi` · `neuro/anat/t1w` |
-| 📤 **Outputs** | `neuro/dtiinit` · `neuro/dwi` |
-| 🐳 **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
-| ⚙️ **Resources** | 8 CPUs · 15 GB memory · 6 h walltime |
-| 🔗 **Run it** | [doi.org/10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3) |
+| **Inputs** | `neuro/dwi` · `neuro/anat/t1w` |
+| **Outputs** | `neuro/dtiinit` · `neuro/dwi` |
+| **Container** | `brainlife/mcr:neurodebian1604-r2017a` |
+| **Resources** | 8 CPUs · 15 GB memory · 6 h walltime |
+| **Run it** | [doi.org/10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3) |
 
-#### 📥 Inputs
+#### Inputs
 
 | Input | Datatype | Required | Description |
 |---|---|---|---|
 | `dwi` | `neuro/dwi` (single_shell) | yes | Single-shell DWI with bvecs and bvals to preprocess. Single shell (datatype tag single_shell). |
 | `t1` | `neuro/anat/t1w` | yes | T1 image to align the output dwi data to. Should be ACPC aligned; dtiInit aligns the DWI to it. |
 
-#### 📤 Outputs
+#### Outputs
 
 | Output | Datatype | Description |
 |---|---|---|
@@ -45,7 +45,7 @@ Runs vistasoft dtiInit (compiled MATLAB): optional eddy/motion correction, resam
 | `dwi` | `neuro/dwi` | Aligned DWI (dwi_aligned_trilin_noMEC) with its rotated bvecs and bvals. |
 
 <details>
-<summary><b>⚙️ Parameters</b> (6)</summary>
+<summary><b>Parameters</b> (6)</summary>
 
 | Parameter | Type | Default | Description |
 |---|---|---|---|
@@ -60,9 +60,9 @@ Runs vistasoft dtiInit (compiled MATLAB): optional eddy/motion correction, resam
 
 <!-- brainlife-app:end -->
 
-## 🚀 Running the App
+## Running the App
 
-### ☁️ On brainlife.io
+### On brainlife.io
 
 Open the App at [doi.org/10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3), choose a single-shell DWI dataset (`neuro/dwi`, tag `single_shell`) and a T1-weighted image (preferably ACPC-aligned) from your project, set the options and press **Execute**. The App archives a `neuro/dtiinit` dataset and an aligned `neuro/dwi` dataset (tagged `dtiinit`) to your project.
 
@@ -79,7 +79,7 @@ The parameters map onto vistasoft's [`dtiInitParams`](https://github.com/vistala
 
 Recommended settings for HCP data: `eddyCorrect` = `-1`, `rotateBvecsWithCanXform` = `false`, `rotateBvecsWithRx` = `false`.
 
-### 💻 Locally
+### Locally
 
 You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqlang.github.io/jq/). `main` runs the compiled MATLAB code in the `brainlife/mcr:neurodebian1604-r2017a` container, so no MATLAB licence is needed.
 
@@ -109,7 +109,7 @@ You need [Singularity/Apptainer](https://apptainer.org/) and [`jq`](https://jqla
 
 To run without containers you need MATLAB, [jsonlab](https://www.mathworks.com/matlabcentral/fileexchange/33381-jsonlab-a-toolbox-to-encode-decode-json-files) and [vistasoft](https://github.com/vistalab/vistasoft/) on the MATLAB path; then run `dtiinit.m`.
 
-### 🧪 Sample data
+### Sample data
 
 Download a sample DWI and T1 from brainlife.io with the [brainlife CLI](https://github.com/brainlife/cli):
 
@@ -121,7 +121,7 @@ bl dataset download 5a050a00eec2b300611abff3 && mv 5a050a00eec2b300611abff3 inpu
 bl dataset download 5a050966eec2b300611abff2 && mv 5a050966eec2b300611abff2 input/anat
 ```
 
-## 📦 Outputs
+## Outputs
 
 The working directory becomes the `neuro/dtiinit` output; its files are described in the [dtiInit documentation](https://github.com/vistalab/vistasoft/wiki/DWI-Initialization#youre-done).
 
@@ -149,12 +149,12 @@ The working directory becomes the `neuro/dtiinit` output; its files are describe
 }
 ```
 
-## 🩺 Troubleshooting
+## Troubleshooting
 
 - **`failed to produce product.json`**: dtiInit did not finish. Check the log for the MATLAB error, make sure the bvecs and bvals match the DWI, and review the `phaseEncodeDir` and b-vector rotation options.
 - **Multi-shell data**: this App takes single-shell DWI only (`single_shell` tag).
 
-## 📚 Citing
+## Citing
 
 > [!TIP]
 > If you use this App in your work, please cite the App, the software it builds on and brainlife.io (below). GitHub's **Cite this repository** button gives the App citation in APA and BibTeX.
@@ -163,13 +163,13 @@ The working directory becomes the `neuro/dtiinit` output; its files are describe
 - Hayashi S, Caron BA, Heinsfeld AS, et al. brainlife.io: a decentralized and open-source cloud platform to support neuroscience research. *Nature Methods* 21:809–813 (2024). [doi:10.1038/s41592-024-02237-2](https://doi.org/10.1038/s41592-024-02237-2)
 - Avesani P, McPherson B, Hayashi S, et al. The open diffusion data derivatives, brain data upcycling via integrated publishing of derivatives and reproducible open cloud services. *Scientific Data* 6:69 (2019). [doi:10.1038/s41597-019-0073-y](https://doi.org/10.1038/s41597-019-0073-y)
 
-## 👥 Authors
+## Authors
 
 - Franco Pestilli (project director)
 - Lindsey Kitchell
 - Soichi Hayashi
 
-## 💰 Funding
+## Funding
 
 [![Wellcome-226486/Z/22/Z](https://img.shields.io/badge/Wellcome-226486%2FZ%2F22%2FZ-purple.svg)](https://wellcome.org/)
 [![NIH-NINDS-U24NS140384](https://img.shields.io/badge/NIH_NINDS-U24NS140384-green.svg)](https://reporter.nih.gov/project-details/11261037)
@@ -188,6 +188,6 @@ The working directory becomes the `neuro/dtiinit` output; its files are describe
 
 <sub>brainlife.io is publicly funded, and acknowledging that support helps keep it running. This App was developed with support from Wellcome, the U.S. National Institutes of Health (including the BRAIN Initiative BRAIN CONNECTS program: The Axonal Projectome EXchange, U24NS140384, and the Center for Mesoscale Connectomics, UM1NS132207) and the U.S. National Science Foundation.</sub>
 
-## ⚖️ License
+## License
 
 MIT.
