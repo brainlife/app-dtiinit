@@ -2,6 +2,38 @@
 [![Run on Brainlife.io](https://img.shields.io/badge/Brainlife-bl.app.3-blue.svg)](https://doi.org/10.25663/bl.app.3)
 
 # abcd-dtiinit
+
+<!-- brainlife-app:begin (generated from the App manifest; edit the manifest, not this block) -->
+
+**Preprocesses single-shell DWI with vistasoft dtiInit (optional eddy current and motion correction, b-vector rotation) and aligns it to a T1-weighted image, producing a dtiInit directory and an aligned DWI.**
+
+Runs vistasoft dtiInit (compiled MATLAB): optional eddy/motion correction, resampling to the chosen resolution, alignment to the ACPC-aligned T1 and tensor fitting, writing the standard dtiInit/dt6 directory used by mrDiffusion, AFQ and LiFE. The aligned DWI, bvecs and bvals are also exported as a dwi output. The README recommends eddyCorrect=-1 and both rotate options false for HCP data; set noDwiAlignment if the DWI is already aligned to the T1.
+
+Run it on brainlife.io: [https://doi.org/10.25663/bl.app.3](https://doi.org/10.25663/bl.app.3)
+
+| Input | Datatype | Required | Description |
+|---|---|---|---|
+| `dwi` | `neuro/dwi` (single_shell) | yes | Single-shell DWI with bvecs and bvals to preprocess. Single shell (datatype tag single_shell). |
+| `t1` | `neuro/anat/t1w` | yes | T1 image to align the output dwi data to. Should be ACPC aligned; dtiInit aligns the DWI to it. |
+
+| Output | Datatype | Description |
+|---|---|---|
+| `output` | `neuro/dtiinit` | dtiInit directory (dt6.json/product.json, aligned DWI, tensor fit and transforms) in vistasoft layout. |
+| `dwi` | `neuro/dwi` | Aligned DWI (dwi_aligned_trilin_noMEC) with its rotated bvecs and bvals. |
+
+| Parameter | Type | Default | Description |
+|---|---|---|---|
+| `phaseEncodeDir` | enum | `2` | Taken from the rawDti nifti field, you can specify it here if it does not exist. If you collected your DTI data using GE's ASSET, you may be prompted to provide phase-encode direction (1= L/R 'row', 2 = A/P 'col'). Information about this, as well as the b-value and gradient code, can befound in the dicom file header. Options: `2`, `1`, `3`. |
+| `resolution` | string | `default` | enter the three values of the desired resolution separated by spaces |
+| `rotateBvecsWithCanXform` | boolean | `true` | Rotate the bvectors according to the canonical xForm. You need to set this to true for Siemens data (such as HCP) and Philips (see mrDiffusion/dtiInit/dtiInit.m section VII) |
+| `rotateBvecsWithRx` | boolean | `true` | Rotate the bvectors according to the prescription (see mrDiffusion/dtiInit/dtiInit.m section VII) |
+| `eddyCorrect` | enum | `1` | do eddy current and motion correction Options: `-1`, `1`, `0`. |
+| `noDwiAlignment` | boolean | `false` | Do not align the DWI data to T1. When True, the DWI data are considered already acpc aligned to T1 and have neurological orientation. The configuration of eddy correction is forced to -1 and Bvecs rotations to False. |
+
+Runtime: container `brainlife/mcr:neurodebian1604-r2017a`; 8 CPUs; 15 GB memory; 6 h walltime.
+
+<!-- brainlife-app:end -->
+
 This App runs [vistasoft/dtiInit](https://github.com/vistalab/vistasoft/wiki/DWI-Initialization) which is a dwi preprocessing software that can run eddy/motion correction and coregister to t1 anatomy. This preprocessing is necessary for various DWI processing such as tensor fittings and stream tracking. dtiInit products various other files stored in a standard directory stuctures used by some vistasoft applications; mrDiffusion, AFQ, mrTrix, LiFE, etc. Other Apps may juse use the dwi output from this App.
 
 ## Parameters
